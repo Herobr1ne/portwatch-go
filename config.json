@@ -1,5 +1,5 @@
 {
-  "webhook": "https://discord.com/api/webhooks/1441907772659601580/SHC8UNo3p3fSbuj2j18qxfSMJp44-PcUSPqx6J2_DlGoBtNO45THJfwAiUGfft7PZKNn",
+  "webhook": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
   "hostname": "",
   "delay": 1,
   "timeout": 1,
