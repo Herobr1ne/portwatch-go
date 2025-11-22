@@ -1,0 +1,19 @@
+{
+  "webhook": "https://discord.com/api/webhooks/1441907772659601580/SHC8UNo3p3fSbuj2j18qxfSMJp44-PcUSPqx6J2_DlGoBtNO45THJfwAiUGfft7PZKNn",
+  "hostname": "",
+  "delay": 1,
+  "timeout": 1,
+  "timezone": "Europe/Berlin",
+  "targets": [
+    {
+      "name": "Cloudflare-HTTPS-v4",
+      "ipv4": "1.1.1.1",
+      "dport": 443
+    },
+    {
+      "name": "Cloudflare-HTTPS-v6",
+      "ipv6": "2606:4700:4700::1111",
+      "dport": 443
+    }
+  ]
+}
