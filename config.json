@@ -1,18 +1,44 @@
 {
+  // Discord webhook URL used for DOWN/UP notifications
   "webhook": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
+
+  // Optional hostname shown in Discord alerts.
+  // If empty, the system hostname is used.
   "hostname": "",
+
+  // Interval between checks in seconds.
+  // Every target is checked once per interval.
   "delay": 1,
-  "timeout": 1,
+
+  // TCP connect timeout in milliseconds.
+  // Example: 100 = 100ms timeout for the TCP connection.
+  "timeout": 100,
+
+  // Timezone used for logs and Discord timestamps.
+  // Supports DST automatically (e.g. Europe/Berlin).
   "timezone": "Europe/Berlin",
+
+  // List of targets to monitor.
+  // Each target can have IPv4, IPv6, or both.
   "targets": [
     {
+      // Human-readable name shown in logs and Discord
       "name": "Cloudflare-HTTPS-v4",
+
+      // IPv4 address to monitor
       "ipv4": "1.1.1.1",
+
+      // Destination TCP port
       "dport": 443
     },
     {
+      // Human-readable name shown in logs and Discord
       "name": "Cloudflare-HTTPS-v6",
+
+      // IPv6 address to monitor
       "ipv6": "2606:4700:4700::1111",
+
+      // Destination TCP port
       "dport": 443
     }
   ]
