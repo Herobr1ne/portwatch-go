@@ -30,7 +30,7 @@ type Config struct {
 	Webhook  string         `json:"webhook"`
 	Host     string         `json:"hostname"`
 	Delay    int            `json:"delay"`    // seconds
-	Timeout  int            `json:"timeout"`  // seconds
+	Timeout  int            `json:"timeout"`  // milliseconds
 	Timezone string         `json:"timezone"` // e.g. "Europe/Berlin"
 }
 
@@ -148,9 +148,9 @@ func loadConfig(path string) (Config, error) {
 
 // TCP ping
 
-func tcpPing(ip string, port int, timeoutSec int, network string) error {
+func tcpPing(ip string, port int, timeoutMs int, network string) error {
 	addr := net.JoinHostPort(ip, strconv.Itoa(port))
-	timeout := time.Duration(timeoutSec) * time.Second
+	timeout := time.Duration(timeoutMs) * time.Millisecond
 	conn, err := net.DialTimeout(network, addr, timeout)
 	if err != nil {
 		return err
@@ -254,7 +254,7 @@ func sendDownAlert(cfg Config, t *TargetState, err error, mtrOut string, ts time
 		{Name: "IP Version", Value: t.IPVersion, Inline: true},
 		{Name: "Port", Value: strconv.Itoa(t.Port), Inline: true},
 		{Name: "Delay (s)", Value: strconv.Itoa(cfg.Delay), Inline: true},
-		{Name: "Timeout (s)", Value: strconv.Itoa(cfg.Timeout), Inline: true},
+		{Name: "Timeout (ms)", Value: strconv.Itoa(cfg.Timeout), Inline: true},
 		{Name: "Status", Value: "DOWN", Inline: true},
 		{Name: "Error", Value: err.Error(), Inline: false},
 	}
@@ -297,7 +297,7 @@ func sendUpAlert(cfg Config, t *TargetState, downSince time.Time, ts time.Time) 
 		{Name: "IP Version", Value: t.IPVersion, Inline: true},
 		{Name: "Port", Value: strconv.Itoa(t.Port), Inline: true},
 		{Name: "Delay (s)", Value: strconv.Itoa(cfg.Delay), Inline: true},
-		{Name: "Timeout (s)", Value: strconv.Itoa(cfg.Timeout), Inline: true},
+		{Name: "Timeout (ms)", Value: strconv.Itoa(cfg.Timeout), Inline: true},
 		{Name: "Status", Value: "UP", Inline: true},
 		{Name: "Downtime", Value: dur.String(), Inline: false},
 	}
@@ -416,7 +416,7 @@ func main() {
 		cfg.Delay = 30
 	}
 	if cfg.Timeout <= 0 {
-		cfg.Timeout = 5
+		cfg.Timeout = 3000
 	}
 	if cfg.Timezone == "" {
 		cfg.Timezone = "Europe/Berlin"
@@ -463,7 +463,7 @@ func main() {
 		log.Fatal("no valid targets (missing IPs or ports)")
 	}
 
-	log.Printf("starting port monitor: targets=%d delay=%ds timeout=%ds timezone=%s",
+	log.Printf("starting port monitor: targets=%d delay=%ds timeout=%dms timezone=%s",
 		len(states), cfg.Delay, cfg.Timeout, cfg.Timezone)
 
 	for _, st := range states {
