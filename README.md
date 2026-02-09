@@ -42,7 +42,7 @@ go build -o portwatch
   "webhook": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
   "hostname": "",
   "delay": 1,
-  "timeout": 5,
+  "timeout": 500,
   "timezone": "Europe/Berlin",
   "targets": [
     {
@@ -67,7 +67,7 @@ go build -o portwatch
   "webhook": "https://discord.com/api/webhooks/YOUR_WEBHOOK",
   "hostname": "",
   "delay": 1,
-  "timeout": 5,
+  "timeout": 500,
   "timezone": "Europe/Berlin"
 }
 ```
